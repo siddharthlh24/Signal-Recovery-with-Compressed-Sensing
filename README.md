@@ -14,7 +14,7 @@ Compressed sensing is a technique that allows for the recovery of sparse signals
 
 Here are some visualizations comparing the original, sampled, and recovered signals:
 
-![Results](media/out.png)
+![](media/output.png)
 
 ## Files
 
