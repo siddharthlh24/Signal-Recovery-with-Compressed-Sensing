@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from scipy.fftpack import dct, idct
 from sklearn.linear_model import Lasso
 
+USE_GAUSSIAN = False  # Change to False to use Bernoulli measurement matrix
+
 def plot_fft(signal, fs, title, ax, show_40hz_marker=True):
     N = len(signal)
     signal_fft = np.fft.fft(signal)
@@ -43,9 +45,14 @@ x_sampled = x[sample_indices]
 t_sampled = t[sample_indices]
 
 # Step 3: Compressed sensing
-# Create a random Gaussian measurement matrix
-np.random.seed(0)
-A = np.random.randn(n_samples, len(x))
+if USE_GAUSSIAN:
+    # Create a random Gaussian measurement matrix
+    np.random.seed(0)
+    A = np.random.randn(n_samples, len(x))
+else:
+    # Create a random Bernoulli measurement matrix
+    np.random.seed(0)
+    A = np.random.choice([1, -1], size=(n_samples, len(x)))
 
 # Perform measurement
 y = A @ x
